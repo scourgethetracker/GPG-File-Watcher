@@ -1,0 +1,89 @@
+# GPG File Watcher Configuration
+# Place this file at: ~/.config/gpg-file-watcher/config.yaml
+
+# GPG key ID, fingerprint, or email address to use for encryption
+# You can find your keys with: gpg --list-keys
+gpg_key_id: "your-email@example.com"
+
+# Directory to watch for new files
+# Use absolute paths or paths with ~ for home directory
+watch_directory: "~/Documents/to_encrypt"
+
+# Directory where encrypted files will be moved
+destination_directory: "~/Documents/encrypted"
+
+# Logging level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+log_level: "INFO"
+
+# Optional: Path to log file (comment out to disable file logging)
+log_file: "~/.local/share/gpg-file-watcher/watcher.log"
+
+# Optional: Filter by file extensions (comment out to watch all files)
+# Example: [".txt", ".pdf", ".docx", ".jpg"]
+file_extensions: null
+
+# Optional: Custom GPG home directory (comment out to use system default)
+# gpg_home: "~/.gnupg"
+
+# Whether to delete original file after successful encryption
+# Set to false to keep both original and encrypted versions
+delete_original: true
+
+# ============================================================================
+# GOOGLE DRIVE INTEGRATION
+# ============================================================================
+# When Google Drive is enabled (via --google-drive flag), encrypted files are
+# uploaded directly to Google Drive and NOT saved to destination_directory.
+# This is ideal for cloud-only storage without local encrypted copies.
+# 
+# To use both local and Google Drive storage, run without --google-drive flag
+# and keep google_drive_enabled: false
+
+# Enable Google Drive upload (can also be enabled with --google-drive flag)
+# When enabled: Files go directly to Google Drive (no local encrypted copy)
+# When disabled: Files go to destination_directory (traditional behavior)
+google_drive_enabled: false
+
+# Google Drive folder ID where files should be uploaded
+# Set to null to upload to root folder
+# To find folder ID: Open folder in browser, ID is in URL after /folders/
+# Example: https://drive.google.com/drive/folders/1ABC...XYZ <- this is the ID
+google_drive_folder_id: null
+
+# Path to Google Drive credentials JSON file
+# Get from: https://console.cloud.google.com/apis/credentials
+# 1. Create a new project or select existing
+# 2. Enable Google Drive API
+# 3. Create OAuth 2.0 Client ID (Desktop application)
+# 4. Download credentials JSON
+google_drive_credentials_file: "~/.config/gpg-file-watcher/gdrive_credentials.json"
+
+# Path to store Google Drive token (auto-generated after first authentication)
+google_drive_token_file: "~/.config/gpg-file-watcher/gdrive_token.json"
+
+# ============================================================================
+# DROPBOX INTEGRATION
+# ============================================================================
+# When Dropbox is enabled (via --dropbox flag), encrypted files are
+# uploaded directly to Dropbox and NOT saved to destination_directory.
+# This is ideal for cloud-only storage without local encrypted copies.
+#
+# Note: Cannot use both Google Drive and Dropbox simultaneously.
+
+# Enable Dropbox upload (can also be enabled with --dropbox flag)
+# When enabled: Files go directly to Dropbox (no local encrypted copy)
+# When disabled: Files go to destination_directory (traditional behavior)
+dropbox_enabled: false
+
+# Dropbox API access token
+# Get from: https://www.dropbox.com/developers/apps
+# 1. Create a new app or select existing
+# 2. Choose "Scoped access" and "Full Dropbox" or "App folder"
+# 3. Generate an access token under "Settings" > "Generated access token"
+# WARNING: Keep this token secure! Anyone with this token can access your Dropbox
+dropbox_access_token: null
+
+# Dropbox folder path where files should be uploaded
+# Examples: "/" for root, "/encrypted" for a folder named encrypted
+# The path must start with "/"
+dropbox_folder_path: "/"

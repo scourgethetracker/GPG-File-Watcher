@@ -1,0 +1,22 @@
+# GPG File Watcher Requirements
+# Python 3.12+
+
+# Core dependencies
+watchdog>=4.0.0          # File system monitoring
+python-gnupg>=0.5.2      # GPG encryption wrapper
+pydantic>=2.5.0          # Configuration validation
+PyYAML>=6.0.1            # YAML configuration parsing
+rich>=13.7.0             # Rich terminal formatting and logging
+
+# Google Drive integration (optional)
+google-api-python-client>=2.108.0  # Google Drive API client
+google-auth-httplib2>=0.2.0        # Google Auth HTTP library
+google-auth-oauthlib>=1.2.0        # Google OAuth library
+
+# Dropbox integration (optional)
+dropbox>=11.36.0         # Dropbox API client
+
+# Development dependencies (optional)
+pytest>=7.4.3            # Testing framework
+pytest-cov>=4.1.0        # Code coverage
+pytest-mock>=3.12.0      # Mocking for tests

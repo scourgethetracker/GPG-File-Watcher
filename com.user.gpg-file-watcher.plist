@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+    GPG File Watcher - macOS Launch Agent
+    
+    Installation:
+    1. Edit the paths below to match your system
+    2. Copy to: ~/Library/LaunchAgents/com.user.gpg-file-watcher.plist
+    3. Load: launchctl load ~/Library/LaunchAgents/com.user.gpg-file-watcher.plist
+    4. Verify: launchctl list | grep gpg-file-watcher
+    
+    Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.user.gpg-file-watcher.plist
+    
+    @author: bva (scourgethetracker/bt7474)
+    @version: 1.0.0
+    @date: 2025-10-28
+-->
+<dict>
+    <!-- Unique identifier for this service -->
+    <key>Label</key>
+    <string>com.user.gpg-file-watcher</string>
+    
+    <!-- Command to run - EDIT THESE PATHS -->
+    <key>ProgramArguments</key>
+    <array>
+        <!-- Path to Python 3 executable -->
+        <string>/usr/local/bin/python3</string>
+        <!-- Path to gpg_file_watcher.py script -->
+        <string>/Users/YOUR_USERNAME/path/to/gpg_file_watcher.py</string>
+        <!-- Uncomment the line below to enable Google Drive upload -->
+        <!-- <string>--google-drive</string> -->
+    </array>
+    
+    <!-- Start automatically at login -->
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <!-- Restart if it crashes -->
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+    
+    <!-- Working directory - EDIT THIS PATH -->
+    <key>WorkingDirectory</key>
+    <string>/Users/YOUR_USERNAME</string>
+    
+    <!-- Environment variables -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- Ensure PATH includes GPG -->
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <!-- Set home directory for config file -->
+        <key>HOME</key>
+        <string>/Users/YOUR_USERNAME</string>
+    </dict>
+    
+    <!-- Log output - EDIT THESE PATHS IF DESIRED -->
+    <key>StandardOutPath</key>
+    <string>/tmp/gpg-file-watcher.stdout.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/tmp/gpg-file-watcher.stderr.log</string>
+    
+    <!-- Throttle settings to prevent rapid restarts -->
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+    
+    <!-- Nice level (process priority, -20 to 20, lower = higher priority) -->
+    <key>Nice</key>
+    <integer>0</integer>
+    
+    <!-- Run only when user is logged in -->
+    <key>LimitLoadToSessionType</key>
+    <string>Aqua</string>
+</dict>
+</plist>
